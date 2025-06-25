@@ -1,0 +1,49 @@
+server:
+  # 项目端口号 项目在电脑上的唯一标识 项目门户
+  port: 8080
+spring:
+  application:
+    # 应用名称, 可写可不写
+    name: takeout_project
+  datasource:
+    druid:
+      # 同意的连接数据库的协议 mysql8.0数据库连接加cj
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 连接数据库协议  mysql数据库的连接地址                 设置时区             开启字符集            设置字符集为utf-8          设置一些时区行为...
+      url: jdbc:mysql://localhost:3306/db_takeaway?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: root
+      password: 123456
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 200ms
+
+
+  cache:
+    redis:
+      # 设置缓存有效期
+      time-to-live: 1800000
+  main:
+    allow-bean-definition-overriding: true
+mybatis-plus:
+  configuration:
+    # 在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射 address_book ---> AddressBook
+    map-underscore-to-camel-case: true
+    # 开启日志把数据库打印到控制台
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath:com/zyg/takeaway/mapper/*.xml  # 扫描Mapper XML文件
+    type-aliases-package: com.zyg.takeaway.entity           # 实体类包路径
+  global-config:
+    db-config:
+      # 默认使用雪花算法生成id，id不重复！
+      id-type: ASSIGN_ID
+
+takeaway:
+  #  项目前端后台目录中创建img包的根目录
+  path: D:\DownLoad\outres
+
